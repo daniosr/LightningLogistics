@@ -61,143 +61,105 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text("Lightning Logistics"),
         backgroundColor: Color(0xFFFF0000),
         bottomOpacity: 0.8,
         centerTitle: true,
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Container(
           padding: EdgeInsets.all(20),
           child: Column(
-            // Column is also a layout widget. It takes a list of children and
-            // arranges them vertically. By default, it sizes itself to fit its
-            // children horizontally, and tries to be as tall as its parent.
-            //
-            // Invoke "debug painting" (press "p" in the console, choose the
-            // "Toggle Debug Paint" action from the Flutter Inspector in Android
-            // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-            // to see the wireframe for each widget.
-            //
-            // Column has various properties to control how it sizes itself and
-            // how it positions its children. Here we use mainAxisAlignment to
-            // center the children vertically; the main axis here is the vertical
-            // axis because Columns are vertical (the cross axis would be
-            // horizontal).
             children: <Widget>[
               Form(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      icon: Icon(Icons.camera),
-                      hintText: 'What do people call you?',
-                      labelText: 'Name *',
+                  child: Column(//change to list view to prevent keyboard error
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.camera_alt_rounded, size: 30),
+                        hintText: 'Scan by clicking camera',
+                        labelText: 'BTWD/Ref*',
+                      ),
+                      onSaved: (String value) {
+                      },
+                      validator: (String value) {
+                        return value.contains('@')
+                            ? 'Do not use the @ char.'
+                            : null;
+                      },
                     ),
-                    onSaved: (String value) {
-                      // This optional block of code can be used to run
-                      // code when the user saves the form.
-                    },
-                    validator: (String value) {
-                      return value.contains('@')
-                          ? 'Do not use the @ char.'
-                          : null;
-                    },
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'What do people call you?',
-                      labelText: 'Name *',
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'SalesOrderRef*',
+                      ),
+                      onSaved: (String value) {
+                      },
+                      validator: (String value) {
+                        return value.contains('@')
+                            ? 'Do not use the @ char.'
+                            : null;
+                      },
                     ),
-                    onSaved: (String value) {
-                      // This optional block of code can be used to run
-                      // code when the user saves the form.
-                    },
-                    validator: (String value) {
-                      return value.contains('@')
-                          ? 'Do not use the @ char.'
-                          : null;
-                    },
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'What do people call you?',
-                      labelText: 'Name *',
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        hintText: 'A or K',
+                        labelText: 'End*',
+                      ),
+                      onSaved: (String value) {
+                      },
+                      validator: (String value) {
+                        return value.contains('@')
+                            ? 'Do not use the @ char.'
+                            : null;
+                      },
                     ),
-                    onSaved: (String value) {
-                      // This optional block of code can be used to run
-                      // code when the user saves the form.
-                    },
-                    validator: (String value) {
-                      return value.contains('@')
-                          ? 'Do not use the @ char.'
-                          : null;
-                    },
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'What do people call you?',
-                      labelText: 'Name *',
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        hintText: 'Numbers only',
+                        labelText: 'Weight*',
+                      ),
+                      onSaved: (String value) {
+                      },
+                      validator: (String value) {
+                        return value.contains('@')
+                            ? 'Do not use the @ char.'
+                            : null;
+                      },
                     ),
-                    onSaved: (String value) {
-                      // This optional block of code can be used to run
-                      // code when the user saves the form.
-                    },
-                    validator: (String value) {
-                      return value.contains('@')
-                          ? 'Do not use the @ char.'
-                          : null;
-                    },
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'What do people call you?',
-                      labelText: 'Name *',
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Location*',
+                      ),
+                      onSaved: (String value) {
+                      },
+                      validator: (String value) {
+                        return value.contains('@')
+                            ? 'Do not use the @ char.'
+                            : null;
+                      },
                     ),
-                    onSaved: (String value) {
-                      // This optional block of code can be used to run
-                      // code when the user saves the form.
-                    },
-                    validator: (String value) {
-                      return value.contains('@')
-                          ? 'Do not use the @ char.'
-                          : null;
-                    },
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'What do people call you?',
-                      labelText: 'Name *',
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'SubLocation',
+                      ),
+                      onSaved: (String value) {
+                      },
+                      validator: (String value) {
+                        return value.contains('@')
+                            ? 'Do not use the @ char.'
+                            : null;
+                      },
                     ),
-                    onSaved: (String value) {
-                      // This optional block of code can be used to run
-                      // code when the user saves the form.
-                    },
-                    validator: (String value) {
-                      return value.contains('@')
-                          ? 'Do not use the @ char.'
-                          : null;
-                    },
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text('Submit'),
-                  )
-                ],
-              ))
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text('Submit'),
+                    )
+                  ],
+                )
+              )
             ],
           ),
         ),
