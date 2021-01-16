@@ -48,44 +48,29 @@ namespace LightningLogisticsAPI.Controllers
             return items;
         }
 
-        // GET api/<ItemController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/<ItemController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] PostItem postItem)
         {
+            Item item = new Item()
+            {
+                BTWD = postItem.BTWDRef.Substring(0, 6),
+                Reference = postItem.BTWDRef.Substring(6),
+                SalesOrderReference = postItem.SalesOrderReference,
+                End = postItem.End,
+                Weight = postItem.Weight,
+                DateRecieved = DateTime.Today,
+                Location = postItem.Location,
+                SubLocation = postItem.SubLocation,
+                Delivered = false,
+                Price = postItem.Price
+            };
+
             using (var context = new ItemsContext())
             {
-                var item = new Item
-                {
-                    BTWD = "BTWD21",
-                    Reference = "0012",
-                    SalesOrderReference = "30778221",
-                    End = 'Z',
-                    Weight = 43,
-                    DateRecieved = DateTime.Now,
-                    Location = "FogW"
-                };
                 context.Items.Add(item);
                 context.SaveChanges();
             }
-        }
-
-        // PUT api/<ItemController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ItemController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
