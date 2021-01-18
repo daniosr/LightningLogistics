@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MyApp());
@@ -19,24 +20,19 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
-
   final String title;
-
-  @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  final _formKeyBTWD = GlobalKey<FormState>();
+  var BTWD = '';
+  var SalesOrderReference = '';
+  var End = '';
+  var Weight = '';
+  var Location = '';
+  var SubLocation = '';
 
-  void _incrementCounter() {
-    setState(() {
-
-      _counter++;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
     return Scaffold(
@@ -52,87 +48,77 @@ class _MyHomePageState extends State<MyHomePage> {
           child: ListView(
             children: <Widget>[
               Form(
-                  child: Column(
+                key: _formKeyBTWD,
+                child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextFormField(
-                    onEditingComplete: () => node.nextFocus(),
-                    decoration: const InputDecoration(
-                      icon: Icon(Icons.camera_alt_rounded, size: 30),
-                      hintText: 'Scan by clicking camera',
-                      labelText: 'BTWD/Ref*',
-                    ),//Add functionality to icon
-                    onSaved: (String value){},
+                  TextFormField(onEditingComplete: () => node.nextFocus(),
+                    decoration: const InputDecoration(icon: Icon(Icons.camera_alt_rounded, size: 30),hintText: 'Scan by clicking camera',labelText: 'BTWD/Ref*',),//Add functionality to icon
+                    onSaved: (String value){BTWD = value;},
+                    validator: (String value) {
+                    return value.isEmpty? 'This cannot be left empty': null;
+                    }
                   ),
                   Container(height: 20),
-                  TextFormField(
-                    onEditingComplete: () => node.nextFocus(),
-                    decoration: const InputDecoration(
-                      labelText: 'Sales Order Reference*',
-                    ),
+                  TextFormField(onEditingComplete: () => node.nextFocus(),
+                    decoration: const InputDecoration(labelText: 'Sales Order Reference*',),
                     keyboardType: TextInputType.number,
-                    onSaved: (String value) {},
-                    validator: (String value) {//Validator for length?
-                      return value.contains('@')
-                          ? 'Do not use the @ char.'
-                          : null;
-                    },//....................//
+                    onSaved: (String value) {SalesOrderReference = value;},
+                    validator: (String value) {
+                      return value.length!=8? '8 digits are required': null;
+                    }
                   ),
                   Container(height: 20),
-                  TextFormField(
-                    onEditingComplete: () => node.nextFocus(),
-                    decoration: const InputDecoration(
-                      labelText: 'End*',
-                    ),
-                    onSaved: (String value) {},
-                    validator: (value){
-                      return value.length != 1?  'Name must be only one characters' : null;
+                  TextFormField(onEditingComplete: () => node.nextFocus(),
+                    decoration: const InputDecoration(labelText: 'End*',),
+                    onSaved: (String value) {End = value;},
+                    validator: (String value){
+                      return value.length != 1 ? 'Name must be only one characters' : null;
                     },
                   ),
                   Container(height: 20),
-                  TextFormField(
-                    onEditingComplete: () => node.nextFocus(),
-                    decoration: const InputDecoration(
-                      labelText: 'Weight*',
-                    ),
+                  TextFormField(onEditingComplete: () => node.nextFocus(),
+                    decoration: const InputDecoration(labelText: 'Weight*',),
                     keyboardType: TextInputType.number,
-                    onSaved: (String value) {},
+                    onSaved: (String value) { Weight = value;},
                     validator: (String value) {
-                      return value.contains('@')
-                          ? 'Do not use the @ char.'
-                          : null;
+                      return value.isEmpty? 'This cannot be left empty': null;
                     },
                   ),
                   Container(height: 20),
-                  TextFormField(
-                    onEditingComplete: () => node.nextFocus(),
-                    decoration: const InputDecoration(
-                      labelText: 'Location*',
-                    ),
-                    onSaved: (String value) {},
+                  TextFormField(onEditingComplete: () => node.nextFocus(),
+                    decoration: const InputDecoration(labelText: 'Location*',),
+                    onSaved: (String value) {Location = value;},
                     validator: (String value) {
-                      return value.contains('@')
-                          ? 'Do not use the @ char.'
-                          : null;
+                      return value.isEmpty? 'This cannot be left empty': null;
                     },
                   ),
                   Container(height: 20),
-                  TextFormField(
-                    onEditingComplete: () => node.nextFocus(),
-                    decoration: const InputDecoration(
-                      labelText: 'Sub-Location',
-                    ),
-                    onSaved: (String value) {},
+                  TextFormField(onEditingComplete: () => node.nextFocus(),
+                    decoration: const InputDecoration(labelText: 'Sub-Location',),
+                    onSaved: (String value) {SubLocation = value;},
                     validator: (String value) {
-                      return value.contains('@')
-                          ? 'Do not use the @ char.'
-                          : null;
+                      return value.contains('@')? 'Do not use the @ char.': null;
                     },
                   ),
                   Container(height: 20),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text('Submit'),
+                  ElevatedButton(onPressed: () {//if all validators return true
+                    if (_formKeyBTWD.currentState.validate() )
+                      {//submit to database
+                        Future<http.Response> createAlbum(String title) {
+                          return http.post(
+                            'http://135.181.25.227/api/item',
+                            headers: <String, String>{
+                              'Content-Type': 'application/json; charset=UTF-8',
+                            },
+                            body: jsonEncode(<String, String>{
+                              'title': title,
+                            }),
+                          );
+                        }
+                      }
+                    },
+                  child: Text('Submit'),
                   )
                 ],
               ))
