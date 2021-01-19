@@ -35,6 +35,8 @@ class _MyHomePageState extends State<MyHomePage> {
   var Location = '';
   var SubLocation = '';
 
+  var map = new Map<String, dynamic>();
+
   var txt = TextEditingController();
 
   void ScanBarcode() async {
@@ -169,13 +171,19 @@ class _MyHomePageState extends State<MyHomePage> {
                           if (_formKeyBTWD.currentState.validate()) {
                             //submit to database
                             Future<http.Response> createAlbum(String title) {
-                              return http.post(
-                                'http://135.181.25.227/api/item',
-                                headers: <String, String>{
-                                  'Content-Type':
-                                      'application/json; charset=UTF-8',
-                                },
-                              );
+                              map['BTWDRef'] = BTWD;
+                              map['SalesOrderRef'] = SalesOrderReference;
+                              map['End'] = End;
+                              map['Weight'] = Weight;
+                              map['Location'] = Location;
+                              map['Sublocation'] = SubLocation;
+
+                              return http.post('http://135.181.25.227/api/item',
+                                  headers: <String, String>{
+                                    'Content-Type':
+                                        'application/json; charset=UTF-8',
+                                  },
+                                  body: map);
                             }
                           }
                         },
