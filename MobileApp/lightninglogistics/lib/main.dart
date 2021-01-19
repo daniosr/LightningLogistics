@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -34,8 +36,6 @@ class _MyHomePageState extends State<MyHomePage> {
   var Weight = '';
   var Location = '';
   var SubLocation = '';
-
-  var map = new Map<String, dynamic>();
 
   var txt = TextEditingController();
 
@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             hintText: 'Scan by clicking camera',
                             labelText: 'BTWD/Ref*',
                           ), //Add functionality to icon
-                          onSaved: (String value) {
+                          onChanged: (String value) {
                             BTWD = value;
                           },
                           validator: (String value) {
@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             labelText: 'Sales Order Reference*',
                           ),
                           keyboardType: TextInputType.number,
-                          onSaved: (String value) {
+                          onChanged: (String value) {
                             SalesOrderReference = value;
                           },
                           validator: (String value) {
@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         decoration: const InputDecoration(
                           labelText: 'End*',
                         ),
-                        onSaved: (String value) {
+                        onChanged: (String value) {
                           End = value;
                         },
                         validator: (String value) {
@@ -125,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           labelText: 'Weight*',
                         ),
                         keyboardType: TextInputType.number,
-                        onSaved: (String value) {
+                        onChanged: (String value) {
                           Weight = value;
                         },
                         validator: (String value) {
@@ -140,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         decoration: const InputDecoration(
                           labelText: 'Location*',
                         ),
-                        onSaved: (String value) {
+                        onChanged: (String value) {
                           Location = value;
                         },
                         validator: (String value) {
@@ -155,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         decoration: const InputDecoration(
                           labelText: 'Sub-Location',
                         ),
-                        onSaved: (String value) {
+                        onChanged: (String value) {
                           SubLocation = value;
                         },
                         validator: (String value) {
@@ -166,25 +166,27 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       Container(height: 20),
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           //if all validators return true
                           if (_formKeyBTWD.currentState.validate()) {
                             //submit to database
-                            Future<http.Response> createAlbum(String title) {
-                              map['BTWDRef'] = BTWD;
-                              map['SalesOrderRef'] = SalesOrderReference;
-                              map['End'] = End;
-                              map['Weight'] = Weight;
-                              map['Location'] = Location;
-                              map['Sublocation'] = SubLocation;
+                            final body = {
+                              'BTWDRef': BTWD,
+                              'SalesOrderRef': SalesOrderReference,
+                              'End': End,
+                              'Weight': Weight,
+                              'Location': Location,
+                              'Sublocation': SubLocation
+                            };
 
-                              return http.post('http://135.181.25.227/api/item',
-                                  headers: <String, String>{
-                                    'Content-Type':
-                                        'application/json; charset=UTF-8',
-                                  },
-                                  body: map);
-                            }
+                            await http
+                                .post('http://135.181.25.227/api/item',
+                                    headers: <String, String>{
+                                      'Content-Type': 'application/json',
+                                      'Host': '135.181.25.227'
+                                    },
+                                    body: jsonEncode(body))
+                                .then((response) => print(End));
                           }
                         },
                         child: Text('Submit'),
