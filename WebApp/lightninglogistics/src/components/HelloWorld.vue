@@ -17,7 +17,7 @@
           <td scope="row">{{ item.btwd }}</td>
           <td scope="row">{{ item.reference }}</td>
           <td scope="row">{{ item.salesOrderReference }}</td>
-          <td scope="row">{{ item.location }} - {{item.subLocation}}</td>
+          <td scope="row">{{ item.location }} - {{ item.subLocation }}</td>
           <td scope="row">{{ item.weight }}</td>
           <td scope="row">{{ item.dateRecieved }}</td>
           <td scope="row">{{ item.price }}</td>
@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     getItems: function () {
-      axios.get("http://localhost:5000/api/item/").then((response) => {
+      axios.get("http://135.181.25.227/api/item/").then((response) => {
         this.items = response.data;
         console.log(response.data);
       });
