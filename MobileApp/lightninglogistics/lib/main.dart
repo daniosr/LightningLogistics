@@ -85,8 +85,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                           validator: (String value) {
                             return value.isEmpty
-                                ? 'This cannot be left empty'
-                                : null;
+                              ? 'This cannot be left empty'
+                              : null;
                           }),
                       Container(height: 20),
                       TextFormField(
@@ -100,8 +100,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                           validator: (String value) {
                             return value.length != 8
-                                ? '8 digits are required'
-                                : null;
+                              ? '8 digits are required'
+                              : null;
                           }),
                       Container(height: 20),
                       TextFormField(
@@ -114,8 +114,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                         validator: (String value) {
                           return value.length != 1
-                              ? 'Name must be only one characters'
-                              : null;
+                            ? 'Name must be only one characters'
+                            : null;
                         },
                       ),
                       Container(height: 20),
@@ -130,8 +130,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                         validator: (String value) {
                           return value.isEmpty
-                              ? 'This cannot be left empty'
-                              : null;
+                            ? 'This cannot be left empty'
+                            : null;
                         },
                       ),
                       Container(height: 20),
@@ -145,8 +145,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                         validator: (String value) {
                           return value.isEmpty
-                              ? 'This cannot be left empty'
-                              : null;
+                            ? 'This cannot be left empty'
+                            : null;
                         },
                       ),
                       Container(height: 20),
@@ -160,8 +160,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                         validator: (String value) {
                           return value.contains('@')
-                              ? 'Do not use the @ char.'
-                              : null;
+                            ? 'Do not use the @ char.'
+                            : null;
                         },
                       ),
                       Container(height: 20),
@@ -178,15 +178,14 @@ class _MyHomePageState extends State<MyHomePage> {
                               'Location': Location,
                               'Sublocation': SubLocation
                             };
-
                             await http
-                                .post('http://135.181.25.227/api/item',
-                                    headers: <String, String>{
-                                      'Content-Type': 'application/json',
-                                      'Host': '135.181.25.227'
-                                    },
-                                    body: jsonEncode(body))
-                                .then((response) => print(End));
+                              .post('http://135.181.25.227/api/item',
+                                  headers: <String, String>{
+                                    'Content-Type': 'application/json',
+                                    'Host': '135.181.25.227'
+                                  },
+                                  body: jsonEncode(body))
+                              .then((response) => print(End));
                           }
                         },
                         child: Text('Submit'),
