@@ -29,7 +29,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _formKeyBTWD = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   var BTWD = '';
   var SalesOrderReference = '';
   var End = '';
@@ -47,138 +47,139 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Lightning Logistics"),
-        backgroundColor: Color(0xFFFF0000),
-        bottomOpacity: 0.8,
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Container(
-          padding: EdgeInsets.all(20),
-          child: ListView(
-            children: <Widget>[
-              Form(
-                  key: _formKeyBTWD,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextFormField(
-                          controller: txt,
-                          onEditingComplete: () => node.nextFocus(),
-                          decoration: InputDecoration(
-                            icon: IconButton(
-                              icon: Icon(
-                                Icons.camera_alt_rounded,
-                                size: 30,
+    return  MaterialApp(
+      home: DefaultTabController(
+        length: 2, child: Scaffold(
+          appBar: AppBar(title: Text("Lightning Logistics"), backgroundColor: Color(0xFFFF0000), bottomOpacity: 0.8, centerTitle: true,
+            bottom: TabBar(tabs: [Tab(icon: Icon(Icons.directions_car)),  Tab(icon: Icon(Icons.directions_transit)),],//change icons to text
+            ),
+          ),
+          body: TabBarView(
+            children:[
+              child: ListView(
+                padding: EdgeInsets.all(20),
+                children: <Widget>[
+                  Form(
+                    key: _formKeyBTWD,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextFormField(
+                            controller: txt,
+                            onEditingComplete: () => node.nextFocus(),
+                            decoration: InputDecoration(
+                              icon: IconButton(
+                                icon: Icon(
+                                  Icons.camera_alt_rounded,
+                                  size: 30,
+                                ),
+                                onPressed: () {
+                                  ScanBarcode();
+                                },
                               ),
-                              onPressed: () {
-                                ScanBarcode();
-                              },
-                            ),
-                            hintText: 'Scan by clicking camera',
-                            labelText: 'BTWD/Ref*',
-                          ), //Add functionality to icon
-                          onChanged: (String value) {
-                            BTWD = value;
-                          },
-                          validator: (String value) {
-                            return value.isEmpty
+                              hintText: 'Scan by clicking camera',
+                              labelText: 'BTWD/Ref*',
+                            ), //Add functionality to icon
+                            onChanged: (String value) {
+                              BTWD = value;
+                            },
+                            validator: (String value) {
+                              return value.isEmpty
                                 ? 'This cannot be left empty'
                                 : null;
-                          }),
-                      Container(height: 20),
-                      TextFormField(
+                            }
+                          ),
+                        Container(height: 20),
+                        TextFormField(
+                            onEditingComplete: () => node.nextFocus(),
+                            decoration: const InputDecoration(
+                              labelText: 'Sales Order Reference*',
+                            ),
+                            keyboardType: TextInputType.number,
+                            onChanged: (String value) {
+                              SalesOrderReference = value;
+                            },
+                            validator: (String value) {
+                              return value.length != 8
+                                ? '8 digits are required'
+                                : null;
+                            }),
+                        Container(height: 20),
+                        TextFormField(
                           onEditingComplete: () => node.nextFocus(),
                           decoration: const InputDecoration(
-                            labelText: 'Sales Order Reference*',
+                            labelText: 'End*',
+                          ),
+                          onChanged: (String value) {
+                            End = value;
+                          },
+                          validator: (String value) {
+                            return value.length != 1
+                              ? 'Name must be only one characters'
+                              : null;
+                          },
+                        ),
+                        Container(height: 20),
+                        TextFormField(
+                          onEditingComplete: () => node.nextFocus(),
+                          decoration: const InputDecoration(
+                            labelText: 'Weight*',
                           ),
                           keyboardType: TextInputType.number,
                           onChanged: (String value) {
-                            SalesOrderReference = value;
+                            Weight = value;
                           },
                           validator: (String value) {
-                            return value.length != 8
-                                ? '8 digits are required'
-                                : null;
-                          }),
-                      Container(height: 20),
-                      TextFormField(
-                        onEditingComplete: () => node.nextFocus(),
-                        decoration: const InputDecoration(
-                          labelText: 'End*',
-                        ),
-                        onChanged: (String value) {
-                          End = value;
-                        },
-                        validator: (String value) {
-                          return value.length != 1
-                              ? 'Name must be only one characters'
-                              : null;
-                        },
-                      ),
-                      Container(height: 20),
-                      TextFormField(
-                        onEditingComplete: () => node.nextFocus(),
-                        decoration: const InputDecoration(
-                          labelText: 'Weight*',
-                        ),
-                        keyboardType: TextInputType.number,
-                        onChanged: (String value) {
-                          Weight = value;
-                        },
-                        validator: (String value) {
-                          return value.isEmpty
+                            return value.isEmpty
                               ? 'This cannot be left empty'
                               : null;
-                        },
-                      ),
-                      Container(height: 20),
-                      TextFormField(
-                        onEditingComplete: () => node.nextFocus(),
-                        decoration: const InputDecoration(
-                          labelText: 'Location*',
+                          },
                         ),
-                        onChanged: (String value) {
-                          Location = value;
-                        },
-                        validator: (String value) {
-                          return value.isEmpty
+                        Container(height: 20),
+                        TextFormField(
+                          onEditingComplete: () => node.nextFocus(),
+                          decoration: const InputDecoration(
+                            labelText: 'Location*',
+                          ),
+                          onChanged: (String value) {
+                            Location = value;
+                          },
+                          validator: (String value) {
+                            return value.isEmpty
                               ? 'This cannot be left empty'
                               : null;
-                        },
-                      ),
-                      Container(height: 20),
-                      TextFormField(
-                        onEditingComplete: () => node.nextFocus(),
-                        decoration: const InputDecoration(
-                          labelText: 'Sub-Location',
+                          },
                         ),
-                        onChanged: (String value) {
-                          SubLocation = value;
-                        },
-                        validator: (String value) {
-                          return value.contains('@')
+                        Container(height: 20),
+                        TextFormField(
+                          onEditingComplete: () => node.nextFocus(),
+                          decoration: const InputDecoration(
+                            labelText: 'Sub-Location',
+                          ),
+                          onChanged: (String value) {
+                            SubLocation = value;
+                          },
+                          validator: (String value) {
+                            return value.contains('@')
                               ? 'Do not use the @ char.'
                               : null;
-                        },
-                      ),
-                      Container(height: 20),
-                      ElevatedButton(
-                        onPressed: () async {
-                          //if all validators return true
-                          if (_formKeyBTWD.currentState.validate()) {
-                            //submit to database
-                            final body = {
-                              'BTWDRef': BTWD,
-                              'SalesOrderReference': SalesOrderReference,
-                              'End': End,
-                              'Weight': Weight,
-                              'Location': Location,
-                              'Sublocation': SubLocation
-                            };
-                            await http
+                          },
+                        ),
+                        Container(height: 20),
+                        ElevatedButton(
+                          onPressed: () async {
+                            //if all validators return true
+                            if (_formKey.currentState.validate()) {
+                              //submit to database
+                              final body = {
+                                'BTWDRef': BTWD,
+                                'SalesOrderReference': SalesOrderReference,
+                                'End': End,
+                                'Weight': Weight,
+                                'Location': Location,
+                                'Sublocation': SubLocation
+                              };
+                              await http
                                 .post('http://135.181.25.227/api/item',
                                     headers: <String, String>{
                                       'Content-Type': 'application/json',
@@ -186,12 +187,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                     },
                                     body: jsonEncode(body))
                                 .then((response) => print(End));
-                          }
-                        },
-                        child: Text('Submit'),
-                      )
-                    ],
-                  ))
+                            }
+                          },
+                          child: Text('Submit'),
+                        )
+                      ],
+                    )
+                  ),
+                  Icon(Icons.directions_transit),//second tab
+                ],
+              ),
             ],
           ),
         ),
