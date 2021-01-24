@@ -54,8 +54,8 @@ namespace LightningLogisticsAPI.Controllers
         {
             Item item = new Item()
             {
-                BTWD = postItem.BTWDRef.Substring(0, 6),
-                Reference = postItem.BTWDRef.Substring(6),
+                BTWD = postItem.BTWDRef, //.Substring(0, 6),
+                //Reference = postItem.BTWDRef.Substring(6),
                 SalesOrderReference = postItem.SalesOrderReference,
                 End = postItem.End,
                 Weight = postItem.Weight,
