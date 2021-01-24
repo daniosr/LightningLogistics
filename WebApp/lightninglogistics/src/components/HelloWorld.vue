@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     getItems: function () {
-      axios.get("http://135.181.25.227/api/item/").then((response) => {
+      axios.get("http://65.21.3.71/api/item/").then((response) => {
         this.items = response.data;
         console.log(response.data);
       });
