@@ -53,7 +53,7 @@ namespace LightningLogisticsAPI
 
             app.UseCors(builder =>
             {
-                builder.WithOrigins("http://65.21.3.70/");
+                builder.WithOrigins("http://65.21.3.70");
                 builder.AllowAnyMethod();
                 builder.AllowAnyHeader();
             });
