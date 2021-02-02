@@ -26,6 +26,18 @@ namespace LightningLogisticsAPI.Controllers
             return items;
         }
 
+        [HttpGet]
+        [Route("{id:int}")]
+        public IEnumerable<Item> GetItem(int id)
+        {
+            Item[] item;
+            using (var context = new ItemsContext())
+            {
+                item = context.Items.Where(x => x.ItemID == id).ToArray();
+            }
+            return item;
+        }
+
         [HttpGet("delivered")]
         public IEnumerable<Item> GetDelivered()
         {

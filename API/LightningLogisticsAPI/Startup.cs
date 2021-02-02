@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LightningLogisticsAPI
 {
@@ -33,6 +37,22 @@ namespace LightningLogisticsAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LightningLogisticsAPI", Version = "v1" });
             });
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["JwtAuth:Issuer"],
+                    ValidAudience = Configuration["JwtAuth:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtAuth:Key"]))
+                };
+            });
+
             services.AddCors();
         }
 
@@ -50,6 +70,8 @@ namespace LightningLogisticsAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LightningLogisticsAPI v1"));
             }
+
+            app.UseHttpsRedirection();
 
             app.UseCors(builder =>
             {
