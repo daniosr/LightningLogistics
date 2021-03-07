@@ -31,7 +31,7 @@
 import axios from "axios";
 
 export default {
-  name: "HelloWorld",
+  name: "Table",
   data: function () {
     return {
       items: {},
@@ -39,10 +39,12 @@ export default {
   },
   methods: {
     getItems: function () {
-      axios.get("http://api.lightninglogistics.co.uk/api/item").then((response) => {
-        this.items = response.data;
-        console.log(response.data);
-      });
+      axios
+        .get("http://api.lightninglogistics.co.uk/api/item")
+        .then((response) => {
+          this.items = response.data;
+          console.log(response.data);
+        });
     },
   },
   created() {

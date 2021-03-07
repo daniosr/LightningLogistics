@@ -5,6 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using LightningLogisticsAPI.Contexts;
 using LightningLogisticsAPI.Models;
+using System.Net;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,6 +17,7 @@ namespace LightningLogisticsAPI.Controllers
     [ApiController]
     public class ItemController : ControllerBase
     {
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         // GET: api/<ItemController>
         [HttpGet]
         public IEnumerable<Item> Get()
