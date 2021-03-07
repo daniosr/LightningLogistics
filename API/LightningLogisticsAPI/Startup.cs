@@ -71,8 +71,6 @@ namespace LightningLogisticsAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LightningLogisticsAPI v1"));
             }
 
-            app.UseHttpsRedirection();
-
             app.UseCors(builder =>
             {
                 builder.WithOrigins("http://65.21.3.70");
