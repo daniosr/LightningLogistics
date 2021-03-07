@@ -73,7 +73,7 @@ namespace LightningLogisticsAPI
 
             app.UseCors(builder =>
             {
-                builder.WithOrigins("http://65.21.3.70");
+                builder.WithOrigins(new string[] { "http://65.21.3.70", "http://localhost:8080", "http://api.lightninglogistics.co.uk" });
                 builder.AllowAnyMethod();
                 builder.AllowAnyHeader();
             });
