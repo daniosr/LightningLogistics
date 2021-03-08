@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace LightningLogisticsAPI.Models
 {
-    public class Login
+    public class Password
     {
-        public int LoginID { get; set; }
-
-        public string PasswordHash { get; set; }
-        public string PasswordSalt { get; set; }
+        public string PasswordString { get; set; }
     }
 }

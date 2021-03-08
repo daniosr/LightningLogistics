@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using System.Text;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace LightningLogisticsAPI.Controllers
 {
@@ -44,10 +46,67 @@ namespace LightningLogisticsAPI.Controllers
             return jwtToken;
         }
 
-        [HttpGet]
-        public String Get()
+        [HttpPost("change")]
+        public string ChangePassword(Password password)
         {
-            return (GenerateJwtToken());
+            byte[] salt = new byte[128 / 8];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(salt);
+            }
+
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: password.PasswordString,
+                salt: salt,
+                prf: KeyDerivationPrf.HMACSHA512,
+                iterationCount: 10000,
+                numBytesRequested: 256 / 8));
+
+            using (var context = new ItemsContext())
+            {
+                context.Auth.Add(new Login()
+                {
+                    PasswordHash = hashed,
+                    PasswordSalt = Convert.ToBase64String(salt)
+                });
+                context.SaveChanges();
+            }
+
+            string token = GenerateJwtToken();
+            return token;
+        }
+
+        private bool CheckPassword(string password)
+        {
+            Login login;
+
+            using (var context = new ItemsContext())
+            {
+                login = context.Auth.OrderBy(a => a.LoginID).Last();
+            }
+
+            byte[] salt = Convert.FromBase64String(login.PasswordSalt);
+
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: password,
+                salt: salt,
+                prf: KeyDerivationPrf.HMACSHA512,
+                iterationCount: 10000,
+                numBytesRequested: 256 / 8));
+
+            return (hashed == login.PasswordHash);
+
+        }
+
+        [HttpPost]
+        public string Post(Password password)
+        {
+            if (CheckPassword(password.PasswordString))
+            {
+                string token = GenerateJwtToken();
+                return token;
+            }
+            return ("The password is wrong");
         }
     }
 }

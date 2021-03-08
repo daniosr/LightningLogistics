@@ -6036,11 +6036,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\danny\\dev\\LightningLogistics\\API\\LightningLogisticsAPI\\LightningLogisticsAPI.csproj",
+      "projectUniqueName": "C:\\Users\\danny\\dev\\Max\\LightningLogistics\\API\\LightningLogisticsAPI\\LightningLogisticsAPI.csproj",
       "projectName": "LightningLogisticsAPI",
-      "projectPath": "C:\\Users\\danny\\dev\\LightningLogistics\\API\\LightningLogisticsAPI\\LightningLogisticsAPI.csproj",
+      "projectPath": "C:\\Users\\danny\\dev\\Max\\LightningLogistics\\API\\LightningLogisticsAPI\\LightningLogisticsAPI.csproj",
       "packagesPath": "C:\\Users\\danny\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\danny\\dev\\LightningLogistics\\API\\LightningLogisticsAPI\\obj\\",
+      "outputPath": "C:\\Users\\danny\\dev\\Max\\LightningLogistics\\API\\LightningLogisticsAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
