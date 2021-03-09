@@ -41,10 +41,9 @@ export default {
   methods: {
     getItems: function () {
       axios
-        .get("http://api.lightninglogistics.co.uk/api/item")
+        .get("http://api.lightninglogistics.co.uk/api/item", {headers: {"Authorization": "Bearer "+ this.$cookies.get("token")}})
         .then((response) => {
           this.items = response.data;
-          console.log(response.data);
         });
     },
     logout: function () {

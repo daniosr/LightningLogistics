@@ -1,17 +1,26 @@
 <template>
-  <div class="container mt-5">
-    <form onsubmit="return false">
-      <div class="mb-3">
-        <label class="form-label">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="exampleInputPassword1"
-          v-model="password"
-        />
+  <div class="outer">
+    <div class="middle">
+        <div class="inner">
+          <img class="pb-5"
+            src="https://lightninglogistics.co.uk/wp-content/uploads/2018/05/lightning-logistics-1x-logo.png"
+          />
+          <form onsubmit="return false">
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="exampleInputPassword1"
+                v-model="password"
+              />
+            </div>
+            <button class="btn btn-danger" v-on:click="attemptLogin">
+              Login
+            </button>
+          </form>
+        </div>
       </div>
-      <button class="btn btn-primary" v-on:click="attemptLogin">Submit</button>
-    </form>
   </div>
 </template>
 
