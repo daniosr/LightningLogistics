@@ -62,7 +62,7 @@ namespace LightningLogisticsAPI
 
             services.AddCors();
 
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,7 +82,7 @@ namespace LightningLogisticsAPI
 
             app.UseCors(builder =>
             {
-                builder.WithOrigins(new string[] { "http://65.21.3.70", "http://localhost:8080", "http://api.lightninglogistics.co.uk" });
+                builder.WithOrigins(new string[] { "http://65.21.3.70", "http://localhost:8080", "http://storage.lightninglogistics.co.uk" });
                 builder.AllowAnyMethod();
                 builder.AllowAnyHeader();
             });
