@@ -24,6 +24,7 @@
         </tr>
       </tbody>
     </table>
+    <button class="btn btn-primary" v-on:click="logout">Logout</button>
   </div>
 </template>
 
@@ -45,6 +46,10 @@ export default {
           this.items = response.data;
           console.log(response.data);
         });
+    },
+    logout: function () {
+      this.$cookies.set("token", "");
+      this.$emit("update-token");
     },
   },
   created() {
