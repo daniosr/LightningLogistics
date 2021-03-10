@@ -1,12 +1,12 @@
 <template>
   <div class="home">
     <Table
-      v-if="renderMain"
+      v-if="toRender == `main`"
       msg="Welcome to Your Vue.js App"
       @update-token="updatedToken()"
     />
     <Login
-      v-if="renderLogin"
+      v-if="toRender == `login`"
       msg="Welcome to Your Vue.js App"
       @update-token="updatedToken()"
     />
@@ -27,8 +27,7 @@ export default {
   },
   data() {
     return {
-      renderLogin: !this.isValid(this.$cookies.get("token")),
-      renderMain: this.isValid(this.$cookies.get("token")),
+      toRender: "",
     };
   },
   methods: {
@@ -42,9 +41,19 @@ export default {
     },
     // need to make the cookie system more robust
     updatedToken: function () {
-      this.renderLogin = !this.isValid(this.$cookies.get("token"));
-      this.renderMain = this.isValid(this.$cookies.get("token"));
+      if (this.isValid(this.$cookies.get("token"))) {
+        this.toRender = "main";
+      } else {
+        this.toRender = "login";
+      }
     },
+  },
+  created() {
+    if (!this.isValid(this.$cookies.get("token"))) {
+      this.toRender = "login";
+    } else {
+      this.toRender = "main";
+    }
   },
 };
 </script>

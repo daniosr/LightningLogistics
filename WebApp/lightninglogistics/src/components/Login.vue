@@ -1,26 +1,24 @@
 <template>
   <div class="outer">
     <div class="middle">
-        <div class="inner">
-          <img class="pb-5"
-            src="https://lightninglogistics.co.uk/wp-content/uploads/2018/05/lightning-logistics-1x-logo.png"
-          />
-          <form onsubmit="return false">
-            <div class="mb-3">
-              <label class="form-label">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="exampleInputPassword1"
-                v-model="password"
-              />
-            </div>
-            <button class="btn btn-danger" v-on:click="attemptLogin">
-              Login
-            </button>
-          </form>
-        </div>
+      <div class="inner">
+        <img class="pb-5 logo" src="@/assets/lllogo.jpeg" />
+        <form onsubmit="return false">
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="exampleInputPassword1"
+              v-model="password"
+            />
+          </div>
+          <button class="btn btn-danger" v-on:click="attemptLogin">
+            Login
+          </button>
+        </form>
       </div>
+    </div>
   </div>
 </template>
 
@@ -64,5 +62,11 @@ li {
 }
 a {
   color: #42b983;
+}
+.logo {
+  width: 75%;
+}
+.inner {
+  background-color: #f7f7f7;
 }
 </style>
