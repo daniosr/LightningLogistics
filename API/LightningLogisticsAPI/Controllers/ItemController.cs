@@ -17,7 +17,7 @@ namespace LightningLogisticsAPI.Controllers
     [ApiController]
     public class ItemController : ControllerBase
     {
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         // GET: api/<ItemController>
         [HttpGet]
         public IEnumerable<Item> Get()
@@ -85,6 +85,16 @@ namespace LightningLogisticsAPI.Controllers
             using (var context = new ItemsContext())
             {
                 context.Items.Add(item);
+                context.SaveChanges();
+            }
+        }
+
+        [HttpDelete]
+        public void Delete([FromBody] Item item)
+        {
+            using (var context = new ItemsContext())
+            {
+                context.Items.Remove(new Item() { ItemID = item.ItemID });
                 context.SaveChanges();
             }
         }

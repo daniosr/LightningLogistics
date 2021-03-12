@@ -10,6 +10,7 @@
               type="password"
               class="form-control"
               id="exampleInputPassword1"
+              align="center"
               v-model="password"
             />
           </div>
@@ -49,6 +50,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+input {
+  text-align: center;
+}
 h3 {
   margin: 40px 0 0;
 }

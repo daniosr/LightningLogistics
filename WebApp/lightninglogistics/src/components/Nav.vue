@@ -16,9 +16,11 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#"
-              >Generate Report</a
-            >
+            <a class="nav-link active" aria-current="page" href="#">Add Item</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Reports</a>
+            
           </li>
         </ul>
         <a class="nav-link" href="#" v-on:click="logout"> Logout </a>
